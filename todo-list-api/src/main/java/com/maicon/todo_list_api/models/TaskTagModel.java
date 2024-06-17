@@ -12,7 +12,7 @@ public class TaskTagModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_task_tag", nullable = false)
     private int idTaskTag;
 
