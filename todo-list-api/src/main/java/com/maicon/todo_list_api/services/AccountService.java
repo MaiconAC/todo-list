@@ -43,7 +43,7 @@ public class AccountService {
         var accountModel = account.get();
         BeanUtils.copyProperties(accountRecordDTO, accountModel);
 
-        return ResponseEntity.status(HttpStatus.OK).body(accountModel);
+        return ResponseEntity.status(HttpStatus.OK).body(accountRepository.save(accountModel));
     }
 
     public ResponseEntity<Object> deleteAccount(Integer id) {
