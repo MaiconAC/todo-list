@@ -1,11 +1,18 @@
 package com.maicon.todo_list_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "section")
 public class SectionModel implements Serializable {
     @Serial
@@ -19,14 +26,11 @@ public class SectionModel implements Serializable {
     @Column(name = "section_title", nullable = false)
     private String sectionTitle;
 
-    @Column(name = "id_list", nullable = false)
-    private int idList;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_list", nullable = false)
+    private ListModel list;
 
-    public int getIdSection() {
-        return idSection;
-    }
-
-    public void setIdSection(int idSection) {
-        this.idSection = idSection;
-    }
+    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<TaskModel> tasks = new ArrayList<>();
 }
