@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,11 +23,7 @@ public class ListService {
         return ResponseEntity.status(HttpStatus.OK).body(listRepository.save(listModel));
     }
 
-    public ResponseEntity<List<ListModel>> listLists() {
-        return ResponseEntity.status(HttpStatus.OK).body(listRepository.findAll());
-    }
-
-    public ResponseEntity<Object> findList(Integer id) {
+    public ResponseEntity<Object> findList(int id) {
         Optional<ListModel> list = listRepository.findById(id);
 
         if (list.isEmpty()) {
@@ -38,7 +33,7 @@ public class ListService {
         return ResponseEntity.status(HttpStatus.OK).body(list.get());
     }
 
-    public ResponseEntity<Object> updateList(Integer id, ListRecordDTO listRecordDTO) {
+    public ResponseEntity<Object> updateList(int id, ListRecordDTO listRecordDTO) {
         Optional<ListModel> list = listRepository.findById(id);
 
         if (list.isEmpty()) {
@@ -51,10 +46,10 @@ public class ListService {
         return ResponseEntity.status(HttpStatus.OK).body(listRepository.save(listModel));
     }
 
-    public ResponseEntity<Object> deleteList(Integer id) {
-        Optional<ListModel> list = listRepository.findById(id);
+    public ResponseEntity<Object> deleteList(int id) {
+        boolean listExist = listRepository.existsById(id);
 
-        if (list.isEmpty()) {
+        if (!listExist) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("List not found");
         }
 

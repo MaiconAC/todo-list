@@ -1,11 +1,17 @@
 package com.maicon.todo_list_api.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "list")
 public class ListModel implements Serializable {
     @Serial
@@ -22,11 +28,12 @@ public class ListModel implements Serializable {
     @Column(name = "id_admin", nullable = false)
     private int idAdmin;
 
-    public int getIdList() {
-        return idList;
-    }
+    @OneToMany(mappedBy = "list", fetch = FetchType.EAGER)
+    private List<ListAccountModel> accounts = new ArrayList<>();
 
-    public void setIdList(int idList) {
-        this.idList = idList;
-    }
+    @OneToMany(mappedBy = "list", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<SectionModel> sections = new ArrayList<>();
+
+    @OneToMany(mappedBy = "list", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<TaskModel> tasks = new ArrayList<>();
 }
