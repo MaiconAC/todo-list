@@ -1,11 +1,15 @@
 package com.maicon.todo_list_api.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "list_account")
 public class ListAccountModel implements Serializable {
     @Serial
@@ -16,17 +20,11 @@ public class ListAccountModel implements Serializable {
     @Column(name = "id_list_account", nullable = false)
     private int idListAccount;
 
-    @Column(name = "id_list", nullable = false)
-    private int idList;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_list", nullable = false)
+    private ListModel list;
 
-    @Column(name = "id_account", nullable = false)
-    private int idAccount;
-
-    public int getIdListAccount() {
-        return idListAccount;
-    }
-
-    public void setIdListAccount(int idListAccount) {
-        this.idListAccount = idListAccount;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_account", nullable = false)
+    private AccountModel account;
 }

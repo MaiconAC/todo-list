@@ -28,29 +28,6 @@ public class TaskTagService {
         return ResponseEntity.status(HttpStatus.OK).body(taskTagRepository.findAll());
     }
 
-    public ResponseEntity<Object> findTaskTag(int id) {
-        Optional<TaskTagModel> taskTag = taskTagRepository.findById(id);
-
-        if (taskTag.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task tag not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(taskTag.get());
-    }
-
-    public ResponseEntity<Object> updateTaskTag(int id, TaskTagRecordDTO taskTagRecordDTO) {
-        Optional<TaskTagModel> taskTag = taskTagRepository.findById(id);
-
-        if (taskTag.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task tag not found");
-        }
-
-        var taskTagModel = new TaskTagModel();
-        BeanUtils.copyProperties(taskTagRecordDTO, taskTagModel);
-
-        return ResponseEntity.status(HttpStatus.OK).body(taskTagRepository.save(taskTagModel));
-    }
-
     public ResponseEntity<Object> deleteTaskTag(int id) {
         Optional<TaskTagModel> taskTag = taskTagRepository.findById(id);
 

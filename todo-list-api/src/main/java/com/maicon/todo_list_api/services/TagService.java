@@ -17,25 +17,8 @@ public class TagService {
     @Autowired
     TagRepository tagRepository;
 
-    public ResponseEntity<TagModel> createTag(TagRecordDTO tagRecordDTO) {
-        var tagModel = new TagModel();
-        BeanUtils.copyProperties(tagRecordDTO, tagModel);
-
-        return ResponseEntity.status(HttpStatus.OK).body(tagRepository.save(tagModel));
-    }
-
     public ResponseEntity<List<TagModel>> listTags() {
         return ResponseEntity.status(HttpStatus.OK).body(tagRepository.findAll());
-    }
-
-    public ResponseEntity<Object> findTag(int id) {
-        Optional<TagModel> tag = tagRepository.findById(id);
-
-        if (tag.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tag not found");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(tag.get());
     }
 
     public ResponseEntity<Object> updateTag(int id, TagRecordDTO tagRecordDTO) {

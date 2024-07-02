@@ -1,11 +1,15 @@
 package com.maicon.todo_list_api.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "task_tag")
 public class TaskTagModel implements Serializable {
     @Serial
@@ -16,17 +20,11 @@ public class TaskTagModel implements Serializable {
     @Column(name = "id_task_tag", nullable = false)
     private int idTaskTag;
 
-    @Column(name = "id_task", nullable = false)
-    private int idTask;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_task", nullable = false)
+    private TaskModel task;
 
-    @Column(name = "id_tag", nullable = false)
-    private int idTag;
-
-    public int getIdTaskTag() {
-        return idTaskTag;
-    }
-
-    public void setIdTaskTag(int idTaskTag) {
-        this.idTaskTag = idTaskTag;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_tag", nullable = false)
+    private TagModel tag;
 }

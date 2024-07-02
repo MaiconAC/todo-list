@@ -1,27 +1,19 @@
 package com.maicon.todo_list_api.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableSwagger2
-public class SwaggerConfig {
+public class OpenApiConfig {
 
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.maicon.todo_list_api"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("To-do List API")
-                .description("API de listas de tarefas colabortivas")
-                .version("1.0.0")
-                .build();
+    public OpenAPI customOpenApi() {
+        return new OpenAPI().info(new Info()
+                        .title("To-do List API")
+                        .description("API de listas de tarefas colabortivas")
+                        .version("1.0.0")
+                );
     }
 }

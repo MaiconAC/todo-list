@@ -16,13 +16,6 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-    public ResponseEntity<AccountModel> createAccount(AccountRecordDTO accountRecordDTO) {
-        var accountModel = new AccountModel();
-        BeanUtils.copyProperties(accountRecordDTO, accountModel);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(accountRepository.save(accountModel));
-    }
-
     public ResponseEntity<Object> findAccount(Integer id) {
         Optional<AccountModel> account = accountRepository.findById(id);
 

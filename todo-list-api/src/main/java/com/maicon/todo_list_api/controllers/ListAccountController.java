@@ -1,43 +1,35 @@
 package com.maicon.todo_list_api.controllers;
 
 import com.maicon.todo_list_api.dtos.ListAccountRecordDTO;
-import com.maicon.todo_list_api.models.ListAccountModel;
 import com.maicon.todo_list_api.services.ListAccountService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
+@Tag(name = "Controller de ListAccount")
 public class ListAccountController {
     @Autowired
     ListAccountService listAccountService;
 
     @PostMapping("/listAccounts")
-    public ResponseEntity<ListAccountModel> createListAccount(@RequestBody @Valid ListAccountRecordDTO listAccountRecordDTO) {
+    @Operation(summary = "Adiciona um usuário a uma lista")
+    public ResponseEntity<Object> createListAccount(@RequestBody @Valid ListAccountRecordDTO listAccountRecordDTO) {
         return listAccountService.createListAccount(listAccountRecordDTO);
     }
 
-    @GetMapping("/listAccounts")
-    public ResponseEntity<List<ListAccountModel>> listListAccounts() {
-        return listAccountService.listListAccounts();
-    }
-
     @GetMapping("/listAccounts/{id}")
-    public ResponseEntity<Object> findListAccount(@PathVariable(name = "id") int id) {
-        return listAccountService.findListAccount(id);
-    }
-
-    @PutMapping("/listAccounts/{id}")
-    public ResponseEntity<Object> updateListAccount(@PathVariable(name = "id") int id,
-                                                @RequestBody @Valid ListAccountRecordDTO listAccountRecordDTO) {
-        return listAccountService.updateListAccount(id, listAccountRecordDTO);
+    @Operation(summary = "Lista os ids e títulos de todas as listas do usuario")
+    public ResponseEntity<Object> listListIdsAndTitles(@PathVariable(name = "id") int idAccount) {
+        return listAccountService.listListIdsAndTitles(idAccount);
     }
 
     @DeleteMapping("/listAccounts/{id}")
+    @Operation(summary = "Remove um usuário de uma lista")
     public ResponseEntity<Object> deleteListAccount(@PathVariable(name = "id") int id) {
         return listAccountService.deleteListAccount(id);
     }

@@ -1,6 +1,6 @@
 package com.maicon.todo_list_api.dtos;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record ListAccountRecordDTO(@NotBlank int idList, @NotBlank int idAccount) {
+public record ListAccountRecordDTO(@NotNull int idList, @NotNull int idAccount) {
 }
